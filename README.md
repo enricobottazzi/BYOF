@@ -14,7 +14,7 @@ Main components of BYOG:
 - An NFT is generated that points to that encrypted list giving you 100% ownership over your gang
 - When the user joins a decentralized social media or a cryptokitties game holding their BYOG NFT, he/she can allow the platform to access their gang by decrypting the list and seamlessly start chatting or playing with their friends.
 
-BYOG gives: 
+BYOG unlocks: 
 - **censorship resistant ownership** upon your list of contacts
 - **portability and composability** across web3 protocols
 - **privacy** guaranteed by asymmetric cryptography
