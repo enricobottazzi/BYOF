@@ -1,5 +1,5 @@
 # BYOG
-BYOG (Bring your own gang) allows you to create a list of contacts from other ethereum address and bring it inside any compatible web3 protocol
+BYOG (_bring your own gang_) allows to create a list of contacts from other ethereum address and bring it inside any compatible web3 protocol
 
 Twitter, Discord and any centralized social media platform keep their social graphs closed. If Discord suddenly shuts down, all your Discord contacts are lost. If you want to leave Twitter you cannot bring your contacts with you.
 
