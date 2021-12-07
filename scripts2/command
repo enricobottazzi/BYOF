@@ -1,8 +1,0 @@
-npx hardhat run scripts2/0.createGang.js --network rinkeby
-npx hardhat run scripts2/1.encrypt.js --network rinkeby
-npx hardhat run scripts2/2.uploadToIPFS.js --network rinkeby
-npx hardhat run scripts2/3.deploy.js --network rinkeby
-npx hardhat run scripts2/4.mintNFT.js --network rinkeby
-npx hardhat run scripts2/5.getTokenURI.js --network rinkeby
-npx hardhat run scripts2/6.decrypt.js --network rinkeby
-npx hardhat run scripts2/7.upgrade.js --network rinkeby

@@ -1,23 +1,29 @@
 const { ethers } = require('hardhat');
 
-async function createGang() {
+async function createGang(signer1, signer2) {
+  
+    // let's say address1 wants to ask a address2 to his list 
+    // address2 has to confirm it by signing a message
+    const owner = await signer1.getAddress()
+    const friend = await signer2.getAddress()
 
-    let ownerAdd
-    let friend // = ethers signer object
-    let friendAdd // = address of the signer 
     let gang = []
-    
-    // let's say you want to ask a friend to your list 
-    // first you need to ask for a singature from the friend that you want to add
-    let message = `I am ${ownerAdd} and I want to add you to my gang`    
-    signature = await friend.signMessage(message);
-    console.log(signature);
-    console.log(`${await friend.getAddress()} is now part of ${await owner.getAddress()} gang`);
-    gang.push(friendAdd);
+
+    const message = `I am ${owner} and I want to add you to my gang`    
+    const signature = await signer2.signMessage(message);
+    const signerAddress = await ethers.utils.verifyMessage(message, signature);
+
+    if (signerAddress == friend){
+      gang.push(friend);
+      console.log(`${friend} is now part of ${owner} gang`);
+    }
+
+    if (signerAddress != friend){
+        console.log(`you are not my friend`);
+    }
+
     return gang;
 }
-
-createGang();
 
 module.exports = createGang;
 
