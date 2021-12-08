@@ -58,14 +58,9 @@ let contract, owner, ownerAddress, friendAddress, tokenID, secretKey, ipfs, frie
         assert.notEqual(initalTokenURI, finalTokenURI);
     });
 
-
     it ("should decrypt the IPFS content and match it with the new array of friends", async () => {
         decryptedData = await decrypt(contract.address, tokenID, secretKey, ipfs)
         assert.equal(await newFriend.getAddress(), decryptedData[1])  
     })
-
-
-
-
 
 });
