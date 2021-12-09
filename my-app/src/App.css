@@ -1,0 +1,24 @@
+.create {
+    position: relative;
+    top: 50px;
+}
+
+.add-member {
+    position: relative;
+    top: 100px; 
+}
+
+.get {
+    position: relative;
+    top: 200px;
+}
+
+.login {
+    position: relative;
+    top: 50px;
+}
+
+.wallet {
+    position:relative;
+    left: 1650px;
+}
