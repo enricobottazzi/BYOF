@@ -31,3 +31,6 @@ Concept Demo: https://www.youtube.com/watch?v=6CaLt5QzQPE
 - Create a [Docstore](https://github.com/orbitdb/orbit-db-docstore) DB for each user; write functions restricted to user (see [accessController](https://github.com/orbitdb/orbit-db-access-controllers))
 - Let the user update his/her database adding JSON file including user signature + new followings
 - Create a simple UI that shows each users' followings and followers (such as byof/enrico.eth)
+
+
+**everything is done off-chain so users won't need to pay gas in order to follow someone**
