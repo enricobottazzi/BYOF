@@ -27,4 +27,4 @@ BYOF unlocks:
 - Allow access only to users that have a registred ENS name in order to reduce spam
 - Create a [Docstore](https://github.com/orbitdb/orbit-db-docstore) DB for each user; write functions restricted to user (see [accessController](https://github.com/orbitdb/orbit-db-access-controllers))
 - Let the user update his/her database adding JSON file including user signature + new followings
-- Set an ENS subdomain (enrico.eth.byog) with a simple UI that shows each user's followings and followers ([similar to .xyz](https://brantly.eth.xyz/))
+- Create a simple UI that shows each users' followings and followers (such as byog/enrico.eth)
