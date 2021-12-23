@@ -23,8 +23,8 @@ BYOF unlocks:
 ## MVP Specs
 
 - Use OrbitDB (distrbuted database built on IPFS) to manage user data 
-- Import User [identity](url) from MetaMask
+- Import User [identity](https://github.com/orbitdb/orbit-db-identity-provider) from MetaMask
 - Allow access only to users that have a registred ENS name in order to reduce spam
-- Create a [Docstore](url) DB for each user; write functions restricted to user (see [accessController](url))
+- Create a [Docstore](https://github.com/orbitdb/orbit-db-docstore) DB for each user; write functions restricted to user (see [accessController](https://github.com/orbitdb/orbit-db-access-controllers))
 - Let the user update his/her database adding JSON file including user signature + new followings
-- Set an ENS subdomain with a simple UI that shows each user's followings and followers ([similar to .xyz](url))
+- Set an ENS subdomain with a simple UI that shows each user's followings and followers ([similar to .xyz](https://brantly.eth.xyz/))
