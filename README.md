@@ -24,6 +24,7 @@ BYOF unlocks:
 
 - Use OrbitDB (distrbuted database built on IPFS) to manage user data 
 - Import User [identity](url) from MetaMask
+- Allow access only to users that have a registred ENS name in order to reduce spam
 - Create a [Docstore](url) DB for each user; write functions restricted to user (see [accessController](url))
 - Let the user update his/her database adding JSON file including user signature + new followings
 - Set an ENS subdomain with a simple UI that shows each user's followings and followers ([similar to .xyz](url))
