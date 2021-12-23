@@ -20,6 +20,9 @@ BYOF unlocks:
 - **privacy** guaranteed by asymmetric cryptography
 
 
+Concept Demo: https://www.youtube.com/watch?v=6CaLt5QzQPE  
+
+
 ## MVP Specs
 
 - Use OrbitDB (distrbuted database built on IPFS) to manage user data 
