@@ -8,9 +8,7 @@ With BYOF you can seamlessly bring your followers to any web3 platform. On the o
 
 Let's take Decentraland as potential use case.
 
-Right now once you connect to Decentraland you have to manually enter the addresses of people you want to interact with. If after a week you wanted to move to another platform you have to start from 0 again. 
-If Decentraland would integrate BYOF, you could import your followers (and followings) and start hanging around with them.  
-If you meet someone cool in Decentraland you can start following them: they will always be part of your social graph, beyond Decentraland.
+Right now once you connect to Decentraland you have to manually enter the addresses of people you want to interact with. If after a week you wanted to move to another platform you have to start from 0 again. If Decentraland would integrate BYOF, you could import your followers (and followings) and start hanging around with them. If you meet someone cool in Decentraland you can start following them: they will always be part of your social graph, beyond Decentraland.
 
 Every web3 application that involves network of people will, eventually, adopt BYOF.
 
@@ -19,6 +17,9 @@ BYOF unlocks:
 - **portability and composability** across web3 protocols
 - **privacy** guaranteed by asymmetric cryptography
 
+
+![BYOF illustrated1](https://user-images.githubusercontent.com/85900164/147481121-50d8c51d-0212-4746-827d-db051679691b.jpg)
+![BYOF illustrated2](https://user-images.githubusercontent.com/85900164/147481132-d75b7f55-4411-41be-a3fa-80967b83b7bb.jpg)
 
 Concept Demo: https://www.youtube.com/watch?v=6CaLt5QzQPE  
 
