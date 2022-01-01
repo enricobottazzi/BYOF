@@ -21,21 +21,15 @@ BYOF unlocks:
 - **portability and composability** across web3 protocols
 - **privacy** guaranteed by asymmetric cryptography
 
-
 ![BYOF illustrated1](https://user-images.githubusercontent.com/85900164/147481121-50d8c51d-0212-4746-827d-db051679691b.jpg)
 ![BYOF illustrated2](https://user-images.githubusercontent.com/85900164/147481132-d75b7f55-4411-41be-a3fa-80967b83b7bb.jpg)
 
-Concept Demo: https://www.youtube.com/watch?v=6CaLt5QzQPE  
+## MVP Demo
 
+https://youtu.be/AEbLHyMGjQA
 
 ## MVP Specs
 
-- Use OrbitDB (distrbuted database built on IPFS) to manage user data 
-- Import User [identity](https://github.com/orbitdb/orbit-db-identity-provider) from MetaMask
-- Allow access only to users that have a registred ENS name in order to reduce spam
-- Create a [Docstore](https://github.com/orbitdb/orbit-db-docstore) DB for each user; write functions restricted to user (see [accessController](https://github.com/orbitdb/orbit-db-access-controllers))
-- Let the user update his/her database adding JSON file including user signature + new followings
-- Create a simple UI that shows each users' followings and followers (such as byof/enrico.eth)
-
+Implemented using [Ceramic](https://developers.ceramic.network/), [3id-connect](https://github.com/ceramicstudio/3id-connect), [Self.ID](https://developers.ceramic.network/tools/self-id/overview/) and  [DID](https://www.w3.org/TR/did-core/) (decentralized identifiers).
 
 **everything is done off-chain so users won't need to pay gas in order to follow someone**
