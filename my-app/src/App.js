@@ -3,6 +3,7 @@ import './index.css';
 import { useState } from 'react'
 import { ethers } from 'ethers'
 import { EthereumAuthProvider, SelfID } from '@self.id/web'
+import { CeramicClient } from '@ceramicnetwork/http-client'
 import Button from '@mui/material/Button'
 import ButtonGroup from '@mui/material/ButtonGroup'
 import MenuBookIcon from '@mui/icons-material/MenuBook';
@@ -13,6 +14,10 @@ import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
 import CancelIcon from '@mui/icons-material/Cancel';
 import BYOF from './BYOF.png';
+import { Core } from '@self.id/core'
+import { Caip10Link } from '@ceramicnetwork/stream-caip10-link'
+
+
 
 function App() {
 
@@ -26,6 +31,9 @@ function App() {
   const [writing, setWriting] = useState(false)
   const [errorMessage, setErrorMessage] = useState('');
 
+  const core = new Core({ ceramic: 'http://localhost:7007' })
+  const API_URL = 'http://localhost:7007'
+  const ceramic = new CeramicClient(API_URL)
 
 
   const ColoredLine = ({ color }) => (
@@ -53,6 +61,7 @@ function App() {
 
     console.log('succesfully authenticated via 3ID!')
     setAccountConnected(address);
+    setConnection(true)
   }
 
 
@@ -63,37 +72,33 @@ function App() {
       ceramic: 'local',
       connectNetwork: 'testnet-clay',
     })
-
     setSelf(self)
-    setConnection(true)
   }
 
   async function readMyFollowingList() {
     await getData(accountConnected)
-    setWriting(true)
   }
 
   async function readFollowingList() {
-    console.log(addressToRead)
     await getData(addressToRead)
-    console.log(data)
   }
 
-  async function getData(addr) {
-    const data = await self.get(
-      'basicProfile',
-      `${addr}@eip155:1`
+  async function getData(addressssssss) {
+
+    const accountLink = await Caip10Link.fromAccount(
+      ceramic,
+      `${addressssssss}@eip155:1`,
     )
 
-    setData(data)
+    const linkedDid = accountLink.did
+
+    const profile = await core.get('basicProfile', linkedDid)
+    setData(profile)
   }
 
   async function handleRemove(id) {
-    console.log(id)
     const list = data.followingList
-    console.log(list)
     const newFollowings = list.filter((item) => list.indexOf(item) !== id)
-    console.log(newFollowings)
 
     await self.set('basicProfile', {
       address: accountConnected,
@@ -142,16 +147,20 @@ function App() {
       {!connection && <img className="photo1" src={BYOF} />}
       {connection && <img className="photo2" src={BYOF} />}
       <ColoredLine color="blue" />
+
+      {connection ? <ButtonGroup>
+        <Button startIcon={<MenuBookIcon />} color="secondary" variant="contained" onClick={() => { setReading(false); setWriting(true); readMyFollowingList() }}> Read my following List</Button>
+        <Button startIcon={<MenuBookIcon />} color="primary" variant="contained" onClick={() => { console.log(accountConnected); setReading(true); setWriting(false); setData('') }} > Read someone else's following list </Button>
+      </ButtonGroup> : <Button startIcon={<CastConnectedIcon />} variant="contained" size="large" onClick={connect}>Connect</Button>}
+
+
       {connection && <header className="card">
         <h3> {accountConnected} succesfully connected to BYOF </h3>
       </header>}
 
-      {connection ? <ButtonGroup>
-        <Button startIcon={<MenuBookIcon />} color="secondary" variant="contained" onClick={() => { setReading(false); readMyFollowingList() }}> Read my following List</Button>
-        <Button startIcon={<CreateTwoToneIcon />} color="primary" variant="contained" onClick={() => { setReading(true); setWriting(false); setData(''); setAddressToRead('') }} > Read someone else's following list </Button>
-      </ButtonGroup> : <Button startIcon={<CastConnectedIcon />} variant="contained" size="large" onClick={connect}>Connect</Button>}
 
-      {writing && data.followingList.length > 0 &&
+
+      {writing && data && data.followingList.length > 0 &&
         <div className="element">
           Here's the accounts you follow :
           <ul>
@@ -164,7 +173,11 @@ function App() {
           </ul>
         </div>
       }
-      {writing && data.followingList.length == 0 && <h3> No following accounts on your list, yet ... </h3>}
+
+      {writing && data && data.followingList.length == 0 && <h3> No following accounts on your list, yet ... </h3>}
+      {writing && (!data) && <h3> No following accounts on your list, yet ... </h3>}
+
+
       {writing &&
         <div className="element">
           <TextField

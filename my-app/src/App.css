@@ -44,6 +44,11 @@
 
 }
 
+.element{
+  margin-bottom: 50px;
+  margin-top: 50px;
+}
+
 
 @keyframes App-logo-spin {
   from {
