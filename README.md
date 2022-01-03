@@ -1,6 +1,6 @@
 # BYOF
 
-BYOF (bring your own friends) allows users to follow ethereum addresses ang get followed back. 
+BYOF (bring your own friends) allows users to follow ethereum addresses and get followed back. 
 
 Twitter, Discord and any centralized social media platform keep their social graphs closed. If Discord suddenly shuts down, all your Discord contacts are lost. If you want to leave Twitter you cannot bring your contacts with you. Today there's nothing that gives users ownership on their lists of following/followers and make it portable from platform to platform.
 
