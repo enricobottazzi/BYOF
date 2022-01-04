@@ -1,6 +1,6 @@
 # BYOF
 
-BYOF (bring your own friends) allows users to follow ethereum addresses ang get followed back. 
+BYOF (bring your own friends) allows users to follow ethereum addresses and get followed back. 
 
 Twitter, Discord and any centralized social media platform keep their social graphs closed. If Discord suddenly shuts down, all your Discord contacts are lost. If you want to leave Twitter you cannot bring your contacts with you. Today there's nothing that gives users ownership on their lists of following/followers and make it portable from platform to platform.
 
@@ -13,7 +13,7 @@ Right now once you connect to Decentraland you have to manually enter the addres
 Every web3 application that involves network of people will, eventually, adopt BYOF.
 
 BYOF has 2 components:
-- An independent UI that can be used to read and update your followers/following list
+- A UI that acts as a dashboard. You can check the DAOs they are part of, the NFTs they own and trading, the web3 games they are playing or the metaverse platforms where they are hang around.
 - An open API that can be integrated within any web3 platform that relies on social networks.
 
 BYOF unlocks: 
