@@ -24,7 +24,7 @@ BYOF unlocks:
 ![BYOF illustrated2](https://user-images.githubusercontent.com/85900164/147481132-d75b7f55-4411-41be-a3fa-80967b83b7bb.jpg)
 
 ## MVP Demo
-https://youtu.be/d0n9Ojuqs-8
+https://youtu.be/bGmtw75th_Y
 
 ## MVP Specs
 Implemented using [Ceramic](https://developers.ceramic.network/), [3id-connect](https://github.com/ceramicstudio/3id-connect), [Self.ID](https://developers.ceramic.network/tools/self-id/overview/) and  [DID](https://www.w3.org/TR/did-core/) (decentralized identifiers).
