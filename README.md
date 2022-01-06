@@ -13,7 +13,7 @@ Right now once you connect to Decentraland you have to manually enter the addres
 Every web3 application that involves network of people will, eventually, adopt BYOF.
 
 BYOF has 2 components:
-- A UI that acts as a dashboard. You can check the DAOs they are part of, the NFTs they own and trading, the web3 games they are playing or the metaverse platforms where they are hang around.
+- A Dashboard where you can track the address you follow. You can check the DAOs they are part of, the NFTs they own and trading, the web3 games they are playing or the metaverse platforms where they are hang around.
 - An open API that can be integrated within any web3 platform that relies on social networks.
 
 BYOF unlocks: 
