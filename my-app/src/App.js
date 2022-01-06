@@ -21,6 +21,7 @@ import { Caip10Link } from '@ceramicnetwork/stream-caip10-link'
 function App() {
 
   const [accountConnected, setAccountConnected] = useState('');
+  const [accountConnectedName, setAccountConnectedName] = useState('')
   const [addressToFollow, setAddressToFollow] = useState('');
   const [addressToRead, setAddressToRead] = useState('');
   const [self, setSelf] = useState('')
@@ -53,6 +54,8 @@ function App() {
 
     console.log('succesfully authenticated via 3ID!')
     setAccountConnected(address);
+
+    setAccountConnectedName(await reverseResolution(address))
     setConnected(true)
   }
 
@@ -69,10 +72,9 @@ function App() {
   async function readFollowingList(address) {
 
     if (address.endsWith(".eth")) {
-      address = await directResolution(address);
-      console.log(address)
-      address ? settData(address) : setErrorMessage ("This ENS name does not exist")    
-      return 
+      const ensName = await directResolution(address);
+      ensName ? settData(ensName) : setErrorMessage ("This ENS name does not exist")    
+      return
     }
 
     await settData(address)
@@ -84,9 +86,11 @@ function App() {
       ceramic,
       `${address}@eip155:1`,
     )
+
     const linkedDid = accountLink.did
 
-    try {
+
+    if (linkedDid) {
       const profile = await core.get('basicProfile', linkedDid);
       const {followingList} = profile;
       const mappedAddresses = await Promise.all(
@@ -96,13 +100,11 @@ function App() {
           const name = await reverseResolution(item);
           // if no ENS name associated to an address name resolves again to the address. {address: 0xa, name: 0xa}
           return { address: item, name: name };
-        }));
-  
-      setData({ ...profile, mappedAddresses: mappedAddresses })
+    }));
+    setData({ ...profile, mappedAddresses: mappedAddresses })
     }
-    catch(err) {
-      setErrorMessage("No DID associated with this account")
-    }
+
+    if(!linkedDid) setErrorMessage("No DID associated with this account")
 
   }
 
@@ -128,35 +130,47 @@ function App() {
 
   async function directResolution(ensName) {
     const address = await provider.resolveName(ensName)
-    return address
+    if (address) return address
   }
 
   async function updateFollowingList() {
 
-    if (directResolution(addressToFollow)) {
+    if (addressToFollow.endsWith(".eth")) {
+      
+      if (await directResolution(addressToFollow)) {
 
-      const address = await directResolution(addressToFollow)
-      let followings
-      if (data && data.followingList) {
-        followings = data.followingList
+        const address = await directResolution(addressToFollow)
+        let followings
+        if (data && data.followingList) {
+          followings = data.followingList
+        }
+  
+        else { followings = [] }
+  
+        followings.push(address)
+  
+        await self.set('basicProfile', {
+          address: accountConnected,
+          lastFollowing: address,
+          followingList: followings
+        })
+  
+        await settData(accountConnected)
+        setWriting(true)
+        setErrorMessage('')
+        return
       }
-      else { followings = [] }
 
-      followings.push(address)
-
-      await self.set('basicProfile', {
-        address: accountConnected,
-        lastFollowing: address,
-        followingList: followings
-      })
-      await settData(accountConnected)
-      setWriting(true)
-      setErrorMessage('')
-    }
-
-    if (!await provider.resolveName(addressToFollow)) {
+      if (!await directResolution(addressToFollow)){
       setErrorMessage('This ENS name does not exist')
       return
+      }
+
+    }
+
+    if(!await ethers.utils.isAddress(addressToFollow)) {
+
+      setErrorMessage('the address you typed is not valid!')
     }
 
     if (data && data.followingList.indexOf(addressToFollow) == 0) {
@@ -185,9 +199,8 @@ function App() {
       setWriting(true)
       setErrorMessage('')
     }
-    else setErrorMessage('the address you typed is not valid!')
-  }
 
+  }
 
   return (
     <div className="App">
@@ -196,25 +209,24 @@ function App() {
       <ColoredLine color="blue" />
 
       {connection ? <ButtonGroup>
-        <Button startIcon={<MenuBookIcon />} color="secondary" variant="contained" onClick={() => { setReading(false); setWriting(true); readFollowingList(accountConnected) }}> Read my following List</Button>
-        <Button startIcon={<MenuBookIcon />} color="primary" variant="contained" onClick={() => { setReading(true); setWriting(false); setData('') }} > Read someone else's following list </Button>
+        <Button startIcon={<MenuBookIcon/>} color="secondary" variant="contained" onClick={() => { setReading(false); setWriting(true); readFollowingList(accountConnected);setErrorMessage('') }}> Read my following List</Button>
+        <Button startIcon={<MenuBookIcon/>} color="primary" variant="contained" onClick={() => { setReading(true); setWriting(false); setData(''); setErrorMessage('')}} > Read someone else's following list </Button>
       </ButtonGroup> : <Button startIcon={<CastConnectedIcon />} variant="contained" size="large" onClick={connect}>Connect</Button>}
 
       {connection && <header className="card">
-        <h3> {accountConnected} connected to BYOF </h3> 
+        <h3> {accountConnectedName} connected to BYOF </h3> 
       </header>}
 
       {writing && data && data.followingList.length > 0 &&
         <div className="element">
           Here's the accounts you follow :
           <ul>
-            {console.log(data)}
             {data.mappedAddresses.map(item => (
               <ListItem key={data.mappedAddresses.indexOf(item)} >
-                <Button startIcon={<CancelIcon />} color="secondary" variant="contained" onClick={() => handleRemove(data.followingList.indexOf(item))}> Stop following </Button>
+                <Button startIcon={<CancelIcon />} color="secondary" variant="contained" onClick={() => handleRemove(data.followingList.indexOf(item.address))}> Stop following </Button>
                 <ListItemText primary={(item.name)} />
-                <Button color="secondary" variant="contained" onClick={() => { window.open(`https://opensea.io/${item}`) }}> Check on OpenSea</Button>
-                <Button color="secondary" variant="contained" onClick={() => { window.open(`https://etherscan.io/address/${item}`) }}> Check on Etherscan</Button>
+                <Button color="secondary" variant="contained" onClick={() => { window.open(`https://opensea.io/${item.address}`) }}> Check on OpenSea</Button>
+                <Button color="secondary" variant="contained" onClick={() => { window.open(`https://etherscan.io/address/${item.address}`) }}> Check on Etherscan</Button>
               </ListItem>
             ))}
           </ul>
@@ -233,7 +245,7 @@ function App() {
             placeholder="0x00000..."
             onChange={e => setAddressToFollow(e.target.value)}
           />
-          <Button startIcon={<CreateTwoToneIcon />} color="primary" variant="contained" onClick={updateFollowingList}> Update your following list </Button>
+          <Button startIcon={<CreateTwoToneIcon />} color="primary" variant="contained" onClick={() => { setErrorMessage(''); updateFollowingList()}}> Update your following list </Button>
         </div>
       }
 
@@ -246,7 +258,7 @@ function App() {
             placeholder="0x00000..."
             onChange={e => setAddressToRead(e.target.value)}
           />
-          <Button startIcon={<CreateTwoToneIcon />} color="primary" variant="contained" onClick={() => readFollowingList(addressToRead)}> Read this account's list </Button>
+          <Button startIcon={<CreateTwoToneIcon />} color="primary" variant="contained" onClick={() => { setErrorMessage(''); readFollowingList(addressToRead)}}> Read this account's list </Button>
         </div>
       }
 
