@@ -29,7 +29,9 @@ https://youtu.be/bGmtw75th_Y
 ## MVP Specs
 Implemented using [Ceramic](https://developers.ceramic.network/), [3id-connect](https://github.com/ceramicstudio/3id-connect), [Self.ID](https://developers.ceramic.network/tools/self-id/overview/) and  [DID](https://www.w3.org/TR/did-core/) (decentralized identifiers).
 
+The application uses a custom data model created with Glaze called BYOFGRPH; you can find it [here] (https://github.com/enricobottazzi/BYOF/blob/master/schemas/BYOFschemaz.json) 
+
 **everything is done off-chain so users won't need to pay gas in order to follow someone**
 
 ## Next Step
-Create a TheGraph index over Ceramic streams in order to let third parties access open social graph and integrate in within their platforms
+Create an index over Ceramic streams in order to let third parties access open social graph and integrate it within their platforms
