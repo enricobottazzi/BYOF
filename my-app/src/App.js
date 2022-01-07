@@ -34,8 +34,11 @@ function App() {
   // creates an internal Ceramic HTTP client connecting to localhost
   const API_URL = 'http://localhost:7007'
   const ceramic = new CeramicClient(API_URL)
-  const core = new Core({ ceramic: 'http://localhost:7007' })
 
+  // Importing an already created model and providing it to the Core instance
+  const model = {definitions:{BYOFGRPH:"kjzl6cwe1jw146hx1pbfgxp7ynpbr3u9p60gkeqhf4k8bu7ui3bzsslfavfjwtg"},schemas:{BYOFGraph:"ceramic://k3y52l7qbv1fry8qoqefqj8khi30hm59k4oyeuicx7doxcfn47wqmh3cyqw74oy68"},tiles:{}}
+  const core = new Core({ ceramic: 'http://localhost:7007', model })
+  
   // hook up ethers provider
   const url = "https://eth-mainnet.alchemyapi.io/v2/CLmJpTstUWu9_rXcDqhGabs67wZWhOSb";
   const provider = new ethers.providers.JsonRpcProvider(url);
@@ -57,14 +60,17 @@ function App() {
 
     setAccountConnectedName(await reverseResolution(address))
     setConnected(true)
+
   }
 
   async function createDid(addr) {
 
+  // providing the new model to the self instance
     const self = await SelfID.authenticate({
       authProvider: new EthereumAuthProvider(window.ethereum, addr),
       ceramic: 'local',
       connectNetwork: 'testnet-clay',
+      model
     })
     setSelf(self)
   }
@@ -89,9 +95,9 @@ function App() {
 
     const linkedDid = accountLink.did
 
-
     if (linkedDid) {
-      const profile = await core.get('basicProfile', linkedDid);
+      const profile = await core.get('BYOFGRPH', linkedDid);
+      if (!profile) {return}
       const {followingList} = profile;
       const mappedAddresses = await Promise.all(
         //Return all the values
@@ -112,11 +118,11 @@ function App() {
     const list = data.followingList
     const newFollowings = list.filter((item) => list.indexOf(item) !== id)
 
-    await self.set('basicProfile', {
+    await self.set('BYOFGRPH', {
       address: accountConnected,
-      newFollowing: "",
       followingList: newFollowings
     })
+
 
     await settData(accountConnected)
   }
@@ -149,12 +155,11 @@ function App() {
   
         followings.push(address)
   
-        await self.set('basicProfile', {
+        await self.set('BYOFGRPH', {
           address: accountConnected,
-          lastFollowing: address,
           followingList: followings
         })
-  
+
         await settData(accountConnected)
         setWriting(true)
         setErrorMessage('')
@@ -189,11 +194,12 @@ function App() {
 
       followings.push(addressToFollow)
 
-      await self.set('basicProfile', {
+      await self.set('BYOFGRPH', {
         address: accountConnected,
-        lastFollowing: addressToFollow,
         followingList: followings
       })
+
+
 
       await settData(accountConnected)
       setWriting(true)
@@ -235,6 +241,7 @@ function App() {
 
       {writing && data && data.followingList.length == 0 && <h3> No following accounts on your list, yet ... </h3>}
       {writing && (!data) && <h3> No following accounts on your list, yet ... </h3>}
+
 
       {writing &&
         <div className="element">
