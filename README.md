@@ -40,7 +40,7 @@ Create an index over Ceramic streams in order to let third parties access open s
 
 - ```npm install -g @ceramicnetwork/cli``` on your machine
 - run ```ceramic daemon``` to [start a ceramic node](https://developers.ceramic.network/build/cli/installation/)
-- Clone this repository 
+- Clone this repository on your machine
 - ```cd my-app```
 - ```npm start```
 
