@@ -35,3 +35,12 @@ The application uses a custom data model created with Glaze called BYOFGRPH; you
 
 ## Next Step
 Create an index over Ceramic streams in order to let third parties access open social graph and integrate it within their platforms
+
+## How to demo it yourself
+
+- ```npm install -g @ceramicnetwork/cli``` on your machine
+- run ```ceramic daemon``` to [start a ceramic node](https://developers.ceramic.network/build/cli/installation/)
+- Clone this repository 
+- ```cd my-app```
+- ```npm start```
+
