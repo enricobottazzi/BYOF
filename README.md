@@ -33,8 +33,9 @@ The application uses a custom data model created with Glaze called BYOFGRPH; you
 
 **everything is done off-chain so users won't need to pay gas in order to follow someone**
 
-## Next Step
-Create an index over Ceramic streams in order to let third parties access open social graph and integrate it within their platforms
+## Open Task Board 
+
+https://enricob.notion.site/b262167e5b1642edbcd9d6d606e95ec9?v=99b43f78006548418ab490da532ac62b
 
 ## How to demo it yourself
 
@@ -43,4 +44,6 @@ Create an index over Ceramic streams in order to let third parties access open s
 - Clone this repository on your machine
 - ```cd my-app```
 - ```npm start```
+
+
 
